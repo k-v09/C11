@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearBtn = document.querySelector('.clear-btn');
     noteList = document.querySelectorAll('.list-container .list-group');
 
-    // Debugging: Log the elements to see if they are being selected correctly
     console.log({
       noteForm, noteTitle, noteText, saveNoteBtn, newNoteBtn, clearBtn, noteList
     });
@@ -29,17 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Show an element
   const show = (elem) => {
     elem.style.display = 'inline';
   };
 
-  // Hide an element
   const hide = (elem) => {
     elem.style.display = 'none';
   };
 
-  // activeNote is used to keep track of the note in the textarea
   let activeNote = {};
 
   const getNotes = () =>
@@ -97,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Delete the clicked note
   const handleNoteDelete = (e) => {
     e.stopPropagation();
 
@@ -114,21 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Sets the activeNote and displays it
   const handleNoteView = (e) => {
     e.preventDefault();
     activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
     renderActiveNote();
   };
 
-  // Sets the activeNote to an empty object and allows the user to enter a new note
   const handleNewNoteView = () => {
     activeNote = {};
     if (clearBtn) show(clearBtn);
     renderActiveNote();
   };
 
-  // Renders the appropriate buttons based on the state of the form
   const handleRenderBtns = () => {
     if (clearBtn) show(clearBtn);
     if (!noteTitle.value.trim() && !noteText.value.trim()) {
@@ -140,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Render the list of note titles
   const renderNoteList = async (notes) => {
     let jsonNotes = await notes.json();
     if (window.location.pathname === '/notes') {
@@ -195,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
-  // Conditional check and event listeners
   if (window.location.pathname === '/notes') {
     if (saveNoteBtn) {
       saveNoteBtn.addEventListener('click', handleNoteSave);
